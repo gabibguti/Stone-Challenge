@@ -1,0 +1,11 @@
+{
+  "/challenge/*": {
+    "target" : "http://localhost:5000/challenge",
+    "secure" : false,
+    "loglevel" : "debug",
+    "changeOrigin" : true,
+    "pathRewrite": {
+      "^/challenge" : ""
+    }
+  }
+}
