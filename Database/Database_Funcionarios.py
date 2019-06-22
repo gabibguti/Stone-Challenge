@@ -38,13 +38,20 @@ def criar_funcionario():
         return "Erro. Funcionario nao pode ser adicionado.", 404
 
 @app.route("/challenge/funcionarios", methods=["PUT"])
-def alterar_idade():
+def alterar_funcionario():
     _id = request.args.get('id')
     _idade = request.args.get('idade')
-    if _id and _idade :
+    _cargo = request.args.get('cargo')
+    _nome = request.args.get('nome')
+    if _id:
         for f in funcionarios:
             if f["id"] == _id :
-                f["idade"] = _idade
+                if _idade :
+                    f["idade"] = _idade
+                if _cargo :
+                    f["cargo"] = _cargo
+                if _nome :
+                    f["nome"] = _nome
                 return "Funcionario alterado com sucesso!", 200
     return "Funcionario nao encontrado.", 404
 
