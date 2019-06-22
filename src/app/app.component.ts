@@ -2,8 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Funcionario, IFuncionario} from './funcionario';
 import {AppService} from './app.service';
-import {MatTabGroup, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogRef, MatTabGroup, MatTableDataSource} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
 
   selectedTab: number = 0;
 
-  constructor (private service: AppService, private http: HttpClient) {}
+  constructor (private service: AppService, private http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource =  new MatTableDataSource(this.funcionarios);
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
     },
       (error: HttpResponse) => {
         if (error.status == 403) {
-          //Funcionario ja existe
+          this.openDialog('Funcionário já existe.');
         }
     });
   }
@@ -86,5 +87,15 @@ export class AppComponent implements OnInit {
     if (this.selectedTab > 1) {
       this.selectedTab = 1;
     }
+  }
+
+  openDialog(msg: string) {
+    const dialogRef = this.dialog.open(DialogMessageComponent, {
+      data: msg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

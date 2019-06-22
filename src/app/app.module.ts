@@ -6,13 +6,23 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {AppService} from './app.service';
-import {MatButtonModule, MatTableModule, MatCardModule, MatTabsModule, MatInputModule, MatFormFieldModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatTableModule,
+  MatCardModule,
+  MatTabsModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatDialogModule
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogMessageComponent
   ],
   imports: [
     MatCardModule,
@@ -26,10 +36,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [AppService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogMessageComponent]
 })
 
 export class AppModule { }
