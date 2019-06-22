@@ -1,9 +1,9 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Funcionario} from './funcionario';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Funcionario, IFuncionario} from './funcionario';
 import {AppService} from './app.service';
-import {MatTableDataSource} from '@angular/material';
+import {MatTabGroup, MatTableDataSource} from '@angular/material';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +13,17 @@ import {MatTableDataSource} from '@angular/material';
 
 export class AppComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'idade', 'cargo'];
-  dataSource: MatTableDataSource;
-  title = 'StoneChallenge';
-  funcionarios: Funcionario[];
-  funcionarioSelecionado: Funcionario;
+  dataSource;
+
+  funcionarios: IFuncionario[];
+  funcionarioSelecionado: IFuncionario;
+
+  field_idade = new FormControl('', [Validators.min(0), Validators.max(120)]);
+  field_id = new FormControl('', [Validators.required]);
+  field_nome = new FormControl('');
+  field_cargo = new FormControl('');
+
+  selectedTab: number = 0;
 
   constructor (private service: AppService, private http: HttpClient) {}
 
@@ -27,19 +34,30 @@ export class AppComponent implements OnInit {
 
   // Pegar lista de funcionarios da base de dados (DB)
   AtualizarListaFuncionarios() {
-    this.service.getFuncionarios().subscribe(data => {
+    this.service.getFuncionarios().subscribe(
+      data => {
         this.funcionarios = data;
+        console.log('atualizar list', data);
         this.dataSource =  new MatTableDataSource(this.funcionarios);
+        this.ChangeTab(0);
       });
   }
 
   // Adicionar funcionario a base de dados e atualizar lista de funcionarios
-  AdicionarFuncionario(novo: Funcionario) {
-    this.service.addFuncionario(novo).subscribe(() => this.AtualizarListaFuncionarios());
+  AdicionarFuncionario(novo: IFuncionario) {
+    this.service.addFuncionario(novo).subscribe(data => {
+      console.log('adicionar', data);
+      this.AtualizarListaFuncionarios();
+    },
+      (error: HttpResponse) => {
+        if (error.status == 403) {
+          //Funcionario ja existe
+        }
+    });
   }
 
   RemoverFuncionario(id: number) {
-    this.service.deleteFuncionario(id).subscribe(() => this.AtualizarListaFuncionarios());
+    this.service.deleteFuncionario(id).subscribe(data => this.AtualizarListaFuncionarios());
   }
 
   AtualizarDadosFuncionario() {
@@ -49,5 +67,24 @@ export class AppComponent implements OnInit {
       this.funcionarioSelecionado.cargo,
       this.funcionarioSelecionado.idade)
       .subscribe(() => this.AtualizarListaFuncionarios());
+  }
+
+  RegistrarFuncionario() {
+    const novoFuncionario = Funcionario.create(
+      this.field_id.value,
+      this.field_nome.value,
+      this.field_cargo.value,
+      this.field_idade.value
+    );
+
+    this.AdicionarFuncionario(novoFuncionario);
+  }
+
+  ChangeTab(index: number) {
+    console.log("index", index, this.selectedTab);
+    this.selectedTab = index;
+    if (this.selectedTab > 1) {
+      this.selectedTab = 1;
+    }
   }
 }

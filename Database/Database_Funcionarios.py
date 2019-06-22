@@ -32,10 +32,13 @@ def funcionario(id):
 def criar_funcionario():
     novo_funcionario = request.get_json()
     if novo_funcionario :
+        for f in funcionarios:
+            if f["id"] == novo_funcionario["id"] :
+                return "Erro. Funcionario ja existe.", 403
         funcionarios.append(novo_funcionario)
-        return "Funcionario adicionado com sucesso!", 201
+        return jsonify(novo_funcionario), 201
     else:
-        return "Erro. Funcionario nao pode ser adicionado.", 404
+        return "Erro. Informacoes do funcionario nulas.", 404
 
 @app.route("/challenge/funcionarios", methods=["PUT"])
 def alterar_funcionario():

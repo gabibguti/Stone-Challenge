@@ -1,18 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Funcionario} from './funcionario';
+import {IFuncionario} from './funcionario';
 import {Observable} from 'rxjs';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AppService {
   constructor (private http: HttpClient) {}
 
-  getFuncionarios(): Observable<Funcionario[]> {
-    return this.http.get<Funcionario[]>('challenge/funcionarios');
+  getFuncionarios(): Observable<IFuncionario[]> {
+    return this.http.get<IFuncionario[]>('challenge/funcionarios');
   }
 
-  addFuncionario(novoFuncionario: Funcionario): Observable<any> {
+  addFuncionario(novoFuncionario: IFuncionario): Observable<any> {
     return this.http.post('challenge/funcionarios', novoFuncionario);
   }
 
