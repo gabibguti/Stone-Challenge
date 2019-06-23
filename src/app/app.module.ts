@@ -13,11 +13,12 @@ import {
   MatTabsModule,
   MatInputModule,
   MatFormFieldModule,
-  MatDialogModule
+  MatDialogModule, MatPaginatorModule, MatSelectModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,10 @@ import {DialogMessageComponent} from '../dialog-message/dialog-message.component
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule,
+    CommonModule,
+    MatSelectModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],

@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Funcionario, IFuncionario} from './funcionario';
 import {AppService} from './app.service';
-import {MatDialog, MatDialogRef, MatTabGroup, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogRef, MatPaginator, MatTabGroup, MatTableDataSource} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
 
@@ -12,7 +12,7 @@ import {DialogMessageComponent} from '../dialog-message/dialog-message.component
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'idade', 'cargo'];
   dataSource;
 
@@ -26,11 +26,17 @@ export class AppComponent implements OnInit {
 
   selectedTab: number = 0;
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   constructor (private service: AppService, private http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource =  new MatTableDataSource(this.funcionarios);
     this.AtualizarListaFuncionarios();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   // Pegar lista de funcionarios da base de dados (DB)
@@ -40,6 +46,7 @@ export class AppComponent implements OnInit {
         this.funcionarios = data;
         console.log('atualizar list', data);
         this.dataSource =  new MatTableDataSource(this.funcionarios);
+        this.dataSource.paginator = this.paginator;
         this.ChangeTab(0);
       });
   }
@@ -50,7 +57,7 @@ export class AppComponent implements OnInit {
       console.log('adicionar', data);
       this.AtualizarListaFuncionarios();
     },
-      (error: HttpResponse) => {
+      (error: HttpResponse<any>) => {
         if (error.status == 403) {
           this.openDialog('Funcionário já existe.');
         }
