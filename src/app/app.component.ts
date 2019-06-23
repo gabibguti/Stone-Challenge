@@ -81,12 +81,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   AtualizarDadosFuncionario(funcionario: IFuncionario) {
+    console.log('calling', funcionario);
     this.service.updateFuncionario(
       funcionario.id,
       funcionario.nome,
       funcionario.cargo,
       funcionario.idade)
-      .subscribe(() => this.AtualizarListaFuncionarios());
+      .subscribe(data => this.AtualizarListaFuncionarios());
   }
 
   RegistrarFuncionario() {
@@ -114,7 +115,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log('Dialog result:', result);
+      // Salvar novos dados do funcionario
+      if (result.status) {
+        console.log('autalizando result');
+        this.AtualizarDadosFuncionario(result.data);
+      }
     });
   }
 
@@ -125,11 +131,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result:', result);
-      // Salvar novos dados do funcionario
-      if (result != false) {
-        console.log('autalizando result');
-        this.AtualizarDadosFuncionario(result);
-      }
     });
   }
 

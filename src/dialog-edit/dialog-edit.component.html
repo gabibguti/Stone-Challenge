@@ -3,31 +3,31 @@
   <form class="register-form">
     <!-- ID -->
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Número de Identidade (id)" [formControl]="field_id" [(value)]="funcionarioEditado.id" required>
+      <input matInput placeholder="Número de Identidade (id)" [formControl]="field_id" [(ngModel)]="funcionarioEditado.id">
     </mat-form-field>
 
     <!-- Nome -->
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Nome" [(value)]="funcionarioEditado.nome">
+      <input matInput placeholder="Nome" [formControl]="field_nome" [(ngModel)]="funcionarioEditado.nome">
     </mat-form-field>
 
     <!-- Idade -->
     <mat-form-field class="example-full-width">
-      <input matInput type="number" placeholder="Idade" [formControl]="field_idade" [(value)]="funcionarioEditado.idade">
+      <input matInput type="number" placeholder="Idade" [formControl]="field_idade" [(ngModel)]="funcionarioEditado.idade">
       <mat-error *ngIf="field_idade.invalid"></mat-error>
     </mat-form-field>
 
     <!-- Cargo -->
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Cargo" [(value)]="funcionarioEditado.cargo">
+      <input matInput placeholder="Cargo" [formControl]="field_cargo"  [(ngModel)]="funcionarioEditado.cargo">
     </mat-form-field>
 
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false" color="warn">Cancel</button>
+  <button mat-button [mat-dialog-close]="{status: false}" color="warn">Cancel</button>
   <button mat-button
-          [mat-dialog-close]="funcionarioEditado"
+          [mat-dialog-close]="{status: true, data: funcionarioEditado}"
           [disabled]="field_id.invalid || field_idade.invalid">
     Save
   </button>

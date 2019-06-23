@@ -10,12 +10,12 @@ import {FormControl, Validators} from '@angular/forms';
 })
 
 export class DialogEditComponent {
-  funcionarioEditado: IFuncionario;
 
-  field_id = new FormControl('0', [Validators.required]);
+  field_id = new FormControl({value: '0', disabled: true}, [Validators.required]);
   field_idade = new FormControl('', [Validators.min(0), Validators.max(120)]);
+  field_nome = new FormControl('');
+  field_cargo = new FormControl('');
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IFuncionario) {
-    this.funcionarioEditado = data;
+  constructor(@Inject(MAT_DIALOG_DATA) public funcionarioEditado: IFuncionario) {
   }
 }

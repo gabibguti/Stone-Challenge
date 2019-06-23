@@ -43,7 +43,7 @@ def criar_funcionario():
 @app.route("/challenge/funcionarios", methods=["PUT"])
 def alterar_funcionario():
     _id = request.args.get('id')
-    _idade = request.args.get('idade')
+    _idade = int(request.args.get('idade'))
     _cargo = request.args.get('cargo')
     _nome = request.args.get('nome')
     if _id:
@@ -55,8 +55,9 @@ def alterar_funcionario():
                     f["cargo"] = _cargo
                 if _nome :
                     f["nome"] = _nome
-                return "Funcionario alterado com sucesso!", 200
-    return "Funcionario nao encontrado.", 404
+                return jsonify(f), 200
+        return "Funcionario nao encontrado.", 404
+    return "Erro. Informacoes do funcionario nulas.", 404
 
 @app.route("/challenge/funcionarios", methods=["DELETE"])
 def deletar_funcionario():

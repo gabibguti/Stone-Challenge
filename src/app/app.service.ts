@@ -23,13 +23,22 @@ export class AppService {
 
   updateFuncionario(idFuncionario: string, nomeFuncionario: string = null,
                     cargoFuncionario: string = null, idadeFuncionario: number = null): Observable<any> {
-    return this.http.put('challenge/funcionarios', {
-      params: {
-        id: idFuncionario,
-        nome: nomeFuncionario,
-        cargo: cargoFuncionario,
-        idade: idadeFuncionario
-      }
-    });
+    let url = 'challenge/funcionarios?';
+    // ID
+    url = url + 'id=' + idFuncionario.toString();
+    // Nome
+    if (nomeFuncionario) {
+      url = url + '&nome=' + nomeFuncionario.toString();
+    }
+    // Idade
+    if (idadeFuncionario) {
+      url = url + '&idade=' + idadeFuncionario.toString();
+    }
+    // Cargo
+    if (cargoFuncionario) {
+      url = url + '&cargo=' + cargoFuncionario.toString();
+    }
+
+    return this.http.put(url, {});
   }
 }

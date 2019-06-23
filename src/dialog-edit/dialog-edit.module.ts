@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {
-  MatDialogModule
+  MatDialogModule, MatFormFieldModule
 } from '@angular/material';
 import {DialogEditComponent} from './dialog-edit.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,10 @@ import {DialogEditComponent} from './dialog-edit.component';
   ],
   imports: [
     BrowserModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [DialogEditComponent]
