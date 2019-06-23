@@ -56,8 +56,7 @@ def alterar_funcionario():
                 if _nome :
                     f["nome"] = _nome
                 return jsonify(f), 200
-        return "Funcionario nao encontrado.", 404
-    return "Erro. Informacoes do funcionario nulas.", 404
+    return "Funcionario nao pode ser atualizado.", 404
 
 @app.route("/challenge/funcionarios", methods=["DELETE"])
 def deletar_funcionario():
@@ -67,7 +66,7 @@ def deletar_funcionario():
             if f["id"] == _id :
                 funcionarios.remove(f)
                 return jsonify(f), 200
-    return "Funcionario nao encontrado.", 404 
+    return "Funcionario nao pode ser removido.", 404
 
 if __name__ == "__main__":
     app.run()

@@ -80,11 +80,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.service.getFuncionarios().subscribe(
       data => {
         this.funcionarios = data;
-        console.log('atualizar list', data);
         this.dataSource =  new MatTableDataSource(this.funcionarios);
         this.dataSource.filterPredicate = this.customFilterPredicate();
         this.dataSource.paginator = this.paginator;
         this.ChangeTab(0);
+      },
+      (error: HttpResponse<any>) => {
+        if (error.status === 504) {
+          this.openMessageDialog('Base de dados fora do ar.');
+        }
       });
   }
 
@@ -92,12 +96,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   AdicionarFuncionario(novo: IFuncionario) {
     this.service.addFuncionario(novo).subscribe(
       data => {
-      console.log('adicionar', data);
       this.AtualizarListaFuncionarios();
     },
       (error: HttpResponse<any>) => {
         if (error.status === 403) {
           this.openMessageDialog('Funcionário já existe.');
+        } else if (error.status === 404) {
+          this.openMessageDialog('Funcionário não pode ser adicionado.');
+        } else if (error.status === 504) {
+          this.openMessageDialog('Base de dados fora do ar.');
         }
     });
   }
@@ -109,19 +116,29 @@ export class AppComponent implements OnInit, AfterViewInit {
       (error: HttpResponse<any>) => {
       if (error.status === 404) {
         this.openMessageDialog('Funcionário não pode ser removido.');
+      } else if (error.status === 504) {
+        this.openMessageDialog('Base de dados fora do ar.');
       }
     });
 
   }
 
   AtualizarDadosFuncionario(funcionario: IFuncionario) {
-    console.log('calling', funcionario);
     this.service.updateFuncionario(
       funcionario.id,
       funcionario.nome,
       funcionario.cargo,
       funcionario.idade)
-      .subscribe(data => this.AtualizarListaFuncionarios());
+      .subscribe(data => {
+        this.AtualizarListaFuncionarios();
+      },
+        (error: HttpResponse<any>) => {
+          if (error.status === 404) {
+            this.openMessageDialog('Funcionário não pode ser atualizado.');
+          } else if (error.status === 504) {
+            this.openMessageDialog('Base de dados fora do ar.');
+          }
+        });
   }
 
   RegistrarFuncionario() {
@@ -136,7 +153,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ChangeTab(index: number) {
-    console.log("index", index, this.selectedTab);
     this.selectedTab = index;
     if (this.selectedTab > 1) {
       this.selectedTab = 1;
@@ -149,10 +165,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result:', result);
       // Salvar novos dados do funcionario
       if (result.status) {
-        console.log('autalizando result');
         this.AtualizarDadosFuncionario(result.data);
       }
     });
@@ -161,10 +175,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   openMessageDialog(msg: string) {
     const dialogRef = this.dialog.open(DialogMessageComponent, {
       data: msg
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result:', result);
     });
   }
 
@@ -176,11 +186,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.SearchMode = !this.SearchMode;
   }
 
-  DeletarFuncionario(id: number) {
-    console.log('element id', id);
-    this.RemoverFuncionario(id);
-  }
-
   OpenEditionMode(funcionario: IFuncionario) {
     this.openEditionDialog(funcionario);
   }
@@ -188,7 +193,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   customFilterPredicate() {
     const myFilterPredicate = (data: IFuncionario): boolean => {
 
-      console.log('filtering', data, this.filteredValues);
       const hasId = data.id.toString().trim().toLowerCase().indexOf(this.filteredValues.id.toLocaleLowerCase()) !== -1;
       const hasNome = data.nome.toString().trim().toLowerCase().indexOf(this.filteredValues.nome.toLowerCase()) !== -1;
       const hasCargo = data.cargo.toString().trim().toLowerCase().indexOf(this.filteredValues.cargo.toLowerCase()) !== -1;
