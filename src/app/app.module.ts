@@ -19,11 +19,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
 import {CommonModule} from '@angular/common';
+import {DialogEditComponent} from '../dialog-edit/dialog-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogMessageComponent
+    DialogMessageComponent,
+    DialogEditComponent
   ],
   imports: [
     MatCardModule,
@@ -46,7 +48,7 @@ import {CommonModule} from '@angular/common';
   ],
   providers: [AppService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogMessageComponent]
+  entryComponents: [DialogMessageComponent, DialogEditComponent]
 })
 
 export class AppModule { }

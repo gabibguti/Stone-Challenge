@@ -5,6 +5,7 @@ import {AppService} from './app.service';
 import {MatDialog, MatDialogRef, MatPaginator, MatTabGroup, MatTableDataSource} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
+import {DialogEditComponent} from '../dialog-edit/dialog-edit.component';
 
 @Component({
   selector: 'app-root',
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     },
       (error: HttpResponse<any>) => {
         if (error.status === 403) {
-          this.openDialog('Funcionário já existe.');
+          this.openMessageDialog('Funcionário já existe.');
         }
     });
   }
@@ -73,7 +74,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     },
       (error: HttpResponse<any>) => {
       if (error.status === 404) {
-        this.openDialog('Funcionário não pode ser removido.');
+        this.openMessageDialog('Funcionário não pode ser removido.');
       }
     });
 
@@ -107,7 +108,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openDialog(msg: string) {
+  openEditionDialog(funcionario: Funcionario) {
+    const dialogRef = this.dialog.open(DialogEditComponent, {
+      data: funcionario
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openMessageDialog(msg: string) {
     const dialogRef = this.dialog.open(DialogMessageComponent, {
       data: msg
     });
@@ -124,5 +135,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   DeletarFuncionario(id: number) {
     console.log('element id', id);
     this.RemoverFuncionario(id);
+  }
+
+  OpenEditionMode(funcionario: Funcionario) {
+    this.openEditionDialog(funcionario);
   }
 }

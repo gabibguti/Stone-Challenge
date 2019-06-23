@@ -40,7 +40,8 @@
                       (click)="DeletarFuncionario(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
-              <button *ngIf="ConfigMode" mat-icon-button aria-label="Editar funcionarios">
+              <button *ngIf="ConfigMode" mat-icon-button aria-label="Editar funcionarios"
+                      (click)="OpenEditionMode(element)">
                 <mat-icon>edit</mat-icon>
               </button>
             </mat-cell>
