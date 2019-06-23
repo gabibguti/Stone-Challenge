@@ -10,25 +10,61 @@
 
           <!-- ID Column -->
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <div *ngIf="!SearchMode">
+                ID
+              </div>
+              <div *ngIf="SearchMode">
+                <mat-form-field>
+                  <input matInput placeholder="ID" [formControl]="filter_id">
+                </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
           </ng-container>
 
           <!-- Nome Column -->
           <ng-container matColumnDef="nome">
-            <mat-header-cell *matHeaderCellDef> Nome</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <div *ngIf="!SearchMode">
+                Nome
+              </div>
+              <div *ngIf="SearchMode">
+                <mat-form-field>
+                  <input matInput placeholder="Nome" [formControl]="filter_nome">
+                </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.nome}}</mat-cell>
           </ng-container>
 
           <!-- Idade Column -->
           <ng-container matColumnDef="idade">
-            <mat-header-cell *matHeaderCellDef> Idade</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <div *ngIf="!SearchMode">
+                Idade
+              </div>
+              <div *ngIf="SearchMode">
+                <mat-form-field>
+                  <input matInput placeholder="Idade" [formControl]="filter_idade">
+                </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.idade}}</mat-cell>
           </ng-container>
 
           <!-- Cargo Column -->
           <ng-container matColumnDef="cargo">
-            <mat-header-cell *matHeaderCellDef> Cargo</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+              <div *ngIf="!SearchMode">
+                Cargo
+              </div>
+              <div *ngIf="SearchMode">
+                <mat-form-field>
+                  <input matInput placeholder="Cargo" [formControl]="filter_cargo">
+                </mat-form-field>
+              </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.cargo}}</mat-cell>
           </ng-container>
 
@@ -60,10 +96,20 @@
 
       </div>
       <div class="col-md-1">
-        <button mat-mini-fab aria-label="Configurar funcionarios" (click)="ToggleConfigMode()"
-                [color]="ConfigMode?'primary':''">
-          <mat-icon>settings</mat-icon>
-        </button>
+        <div class="row" style="margin: 15px;">
+
+          <button mat-mini-fab aria-label="Configurar funcionarios" (click)="ToggleConfigMode()"
+                  [color]="ConfigMode?'primary':''">
+            <mat-icon>settings</mat-icon>
+          </button>
+
+        </div>
+        <div class="row" style="margin: 15px;">
+          <button mat-mini-fab aria-label="Procurar funcionarios" (click)="ToggleSearchMode()"
+                  [color]="SearchMode?'primary':''">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </mat-tab>
@@ -101,7 +147,9 @@
         </form>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-button (click)="RegistrarFuncionario()" [disabled]="field_id.invalid || field_idade.invalid"> Adicionar</button>
+        <button mat-button (click)="RegistrarFuncionario()" [disabled]="field_id.invalid || field_idade.invalid">
+          Adicionar
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-tab>

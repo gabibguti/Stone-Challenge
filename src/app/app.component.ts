@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   dataSource;
 
   ConfigMode: boolean = false;
+  SearchMode: boolean = false;
 
   funcionarios: IFuncionario[];
   funcionarioSelecionado: IFuncionario;
@@ -29,6 +30,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   selectedTab: number = 0;
 
+  filter_id = new FormControl();
+  filter_nome = new FormControl();
+  filter_idade = new FormControl();
+  filter_cargo = new FormControl();
+
+  filteredValues = {
+    id: '', nome: '', idade: '', cargo: ''
+  };
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor (private service: AppService, private http: HttpClient, public dialog: MatDialog) {}
@@ -36,6 +46,29 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource =  new MatTableDataSource(this.funcionarios);
     this.AtualizarListaFuncionarios();
+
+    this.filter_id.valueChanges.subscribe((filterValue) => {
+      this.filteredValues.id = filterValue;
+      this.dataSource.filter = ' ';
+    });
+
+    this.filter_nome.valueChanges.subscribe((filterValue) => {
+      this.filteredValues.nome = filterValue;
+      this.dataSource.filter = ' ';
+    });
+
+    this.filter_cargo.valueChanges.subscribe((filterValue) => {
+      this.filteredValues.cargo = filterValue;
+      this.dataSource.filter = ' ';
+    });
+
+    this.filter_idade.valueChanges.subscribe((filterValue) => {
+      this.filteredValues.idade = filterValue;
+      this.dataSource.filter = ' ';
+    });
+
+    this.dataSource.filterPredicate = this.customFilterPredicate();
+
   }
 
   ngAfterViewInit() {
@@ -49,6 +82,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.funcionarios = data;
         console.log('atualizar list', data);
         this.dataSource =  new MatTableDataSource(this.funcionarios);
+        this.dataSource.filterPredicate = this.customFilterPredicate();
         this.dataSource.paginator = this.paginator;
         this.ChangeTab(0);
       });
@@ -138,6 +172,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.ConfigMode = !this.ConfigMode;
   }
 
+  ToggleSearchMode() {
+    this.SearchMode = !this.SearchMode;
+  }
+
   DeletarFuncionario(id: number) {
     console.log('element id', id);
     this.RemoverFuncionario(id);
@@ -145,5 +183,19 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   OpenEditionMode(funcionario: IFuncionario) {
     this.openEditionDialog(funcionario);
+  }
+
+  customFilterPredicate() {
+    const myFilterPredicate = (data: IFuncionario): boolean => {
+
+      console.log('filtering', data, this.filteredValues);
+      const hasId = data.id.toString().trim().toLowerCase().indexOf(this.filteredValues.id.toLocaleLowerCase()) !== -1;
+      const hasNome = data.nome.toString().trim().toLowerCase().indexOf(this.filteredValues.nome.toLowerCase()) !== -1;
+      const hasCargo = data.cargo.toString().trim().toLowerCase().indexOf(this.filteredValues.cargo.toLowerCase()) !== -1;
+      const hasIdade = data.idade.toString().trim().indexOf(this.filteredValues.idade.toString()) !== -1;
+
+      return hasId && hasNome && hasCargo && hasIdade;
+    }
+    return myFilterPredicate;
   }
 }
