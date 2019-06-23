@@ -13,8 +13,10 @@ import {DialogMessageComponent} from '../dialog-message/dialog-message.component
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'idade', 'cargo'];
+  displayedColumns: string[] = ['id', 'nome', 'idade', 'cargo', 'edit'];
   dataSource;
+
+  EditionMode: boolean = false;
 
   funcionarios: IFuncionario[];
   funcionarioSelecionado: IFuncionario;
@@ -104,5 +106,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  ToggleEditionMode() {
+    this.EditionMode = !this.EditionMode;
+  }
+
+  DeletarFuncionario(id: number) {
+    console.log('element id', id);
+    this.RemoverFuncionario(id);
   }
 }

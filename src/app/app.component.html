@@ -1,43 +1,66 @@
 <mat-tab-group [(selectedIndex)]="selectedTab">
   <mat-tab label="Funcionários">
 
-    <!-- Tabela Funcionários -->
-    <mat-table #table [dataSource]="dataSource">
+    <div style="margin: 10px" class="row">
+      <!-- Registrar Novos Funcionários -->
+      <div class="col-md-11">
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-      </ng-container>
+        <!-- Tabela Funcionários -->
+        <mat-table #table [dataSource]="dataSource">
 
-      <!-- Nome Column -->
-      <ng-container matColumnDef="nome">
-        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
-      </ng-container>
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
+          </ng-container>
 
-      <!-- Idade Column -->
-      <ng-container matColumnDef="idade">
-        <mat-header-cell *matHeaderCellDef> Idade </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.idade}} </mat-cell>
-      </ng-container>
+          <!-- Nome Column -->
+          <ng-container matColumnDef="nome">
+            <mat-header-cell *matHeaderCellDef> Nome</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nome}}</mat-cell>
+          </ng-container>
 
-      <!-- Cargo Column -->
-      <ng-container matColumnDef="cargo">
-        <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.cargo}} </mat-cell>
-      </ng-container>
+          <!-- Idade Column -->
+          <ng-container matColumnDef="idade">
+            <mat-header-cell *matHeaderCellDef> Idade</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.idade}}</mat-cell>
+          </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+          <!-- Cargo Column -->
+          <ng-container matColumnDef="cargo">
+            <mat-header-cell *matHeaderCellDef> Cargo</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cargo}}</mat-cell>
+          </ng-container>
 
-    <!-- Paginação -->
-    <mat-paginator #paginator
-                   [pageSize]="10"
-                   [pageSizeOptions]="[5, 10, 20]"
-                   [showFirstLastButtons]="true">
-    </mat-paginator>
+          <!-- Editar Column -->
+          <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button *ngIf="EditionMode" mat-icon-button color="warn" aria-label="Editar funcionarios"
+                      (click)="DeletarFuncionario(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <!-- Paginação -->
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+
+      </div>
+      <div class="col-md-1">
+        <button mat-icon-button aria-label="Editar funcionarios" (click)="ToggleEditionMode()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
   </mat-tab>
 
   <mat-tab label="Administrar">
@@ -73,7 +96,7 @@
         </form>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-button (click)="RegistrarFuncionario()" [disabled]="field_id.invalid"> Adicionar </button>
+        <button mat-button (click)="RegistrarFuncionario()" [disabled]="field_id.invalid"> Adicionar</button>
       </mat-card-actions>
     </mat-card>
   </mat-tab>

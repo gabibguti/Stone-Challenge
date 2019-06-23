@@ -13,7 +13,7 @@ import {
   MatTabsModule,
   MatInputModule,
   MatFormFieldModule,
-  MatDialogModule, MatPaginatorModule, MatSelectModule
+  MatDialogModule, MatPaginatorModule, MatSelectModule, MatIconModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -41,7 +41,8 @@ import {CommonModule} from '@angular/common';
     MatDialogModule,
     MatPaginatorModule,
     CommonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent],

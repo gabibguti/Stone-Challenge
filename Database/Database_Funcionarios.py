@@ -65,7 +65,7 @@ def deletar_funcionario():
         for f in funcionarios:
             if f["id"] == _id :
                 funcionarios.remove(f)
-                return "Funcionario removido com sucesso.", 200
+                return jsonify(f), 200
     return "Funcionario nao encontrado.", 404 
 
 if __name__ == "__main__":

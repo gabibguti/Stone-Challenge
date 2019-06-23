@@ -5,3 +5,8 @@ table {
 .example-full-width {
   width: 100%;
 }
+
+.mat-column-edit {
+  flex: 0 0 8% !important;
+  width: 8% !important;
+}
