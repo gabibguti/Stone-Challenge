@@ -6,7 +6,7 @@ export interface IFuncionario {
 }
 
 export class Funcionario {
-  static create(id: string, nome: string, cargo: string, idade: number) {
-    return { id: id, nome: nome, cargo: cargo, idade: idade};
+  static create(nome: string, cargo: string, idade: number) {
+    return { id: '', nome: nome, cargo: cargo, idade: idade};
   }
 }

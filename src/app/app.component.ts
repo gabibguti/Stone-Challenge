@@ -24,7 +24,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   funcionarioSelecionado: IFuncionario;
 
   field_idade = new FormControl('', [Validators.min(0), Validators.max(120)]);
-  field_id = new FormControl('', [Validators.required]);
   field_nome = new FormControl('');
   field_cargo = new FormControl('');
 
@@ -143,7 +142,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   RegistrarFuncionario() {
     const novoFuncionario = Funcionario.create(
-      this.field_id.value,
       this.field_nome.value,
       this.field_cargo.value,
       this.field_idade.value
