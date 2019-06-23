@@ -33,12 +33,15 @@
           </ng-container>
 
           <!-- Editar Column -->
-          <ng-container matColumnDef="edit">
+          <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let element">
-              <button *ngIf="EditionMode" mat-icon-button color="warn" aria-label="Editar funcionarios"
+              <button *ngIf="ConfigMode" mat-icon-button color="warn" aria-label="Deletar funcionarios"
                       (click)="DeletarFuncionario(element.id)">
                 <mat-icon>delete</mat-icon>
+              </button>
+              <button *ngIf="ConfigMode" mat-icon-button aria-label="Editar funcionarios">
+                <mat-icon>edit</mat-icon>
               </button>
             </mat-cell>
           </ng-container>
@@ -56,8 +59,9 @@
 
       </div>
       <div class="col-md-1">
-        <button mat-icon-button aria-label="Editar funcionarios" (click)="ToggleEditionMode()">
-          <mat-icon>edit</mat-icon>
+        <button mat-mini-fab aria-label="Editar funcionarios" (click)="ToggleConfigMode()"
+                [color]="ConfigMode?'primary':''">
+          <mat-icon>settings</mat-icon>
         </button>
       </div>
     </div>

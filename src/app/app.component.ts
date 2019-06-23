@@ -13,10 +13,10 @@ import {DialogMessageComponent} from '../dialog-message/dialog-message.component
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'idade', 'cargo', 'edit'];
+  displayedColumns: string[] = ['id', 'nome', 'idade', 'cargo', 'actions'];
   dataSource;
 
-  EditionMode: boolean = false;
+  ConfigMode: boolean = false;
 
   funcionarios: IFuncionario[];
   funcionarioSelecionado: IFuncionario;
@@ -55,19 +55,28 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // Adicionar funcionario a base de dados e atualizar lista de funcionarios
   AdicionarFuncionario(novo: IFuncionario) {
-    this.service.addFuncionario(novo).subscribe(data => {
+    this.service.addFuncionario(novo).subscribe(
+      data => {
       console.log('adicionar', data);
       this.AtualizarListaFuncionarios();
     },
       (error: HttpResponse<any>) => {
-        if (error.status == 403) {
+        if (error.status === 403) {
           this.openDialog('Funcionário já existe.');
         }
     });
   }
 
   RemoverFuncionario(id: number) {
-    this.service.deleteFuncionario(id).subscribe(data => this.AtualizarListaFuncionarios());
+    this.service.deleteFuncionario(id).subscribe(data => {
+      this.AtualizarListaFuncionarios();
+    },
+      (error: HttpResponse<any>) => {
+      if (error.status === 404) {
+        this.openDialog('Funcionário não pode ser removido.');
+      }
+    });
+
   }
 
   AtualizarDadosFuncionario() {
@@ -108,8 +117,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ToggleEditionMode() {
-    this.EditionMode = !this.EditionMode;
+  ToggleConfigMode() {
+    this.ConfigMode = !this.ConfigMode;
   }
 
   DeletarFuncionario(id: number) {
