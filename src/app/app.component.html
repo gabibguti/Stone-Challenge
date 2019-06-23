@@ -60,7 +60,7 @@
 
       </div>
       <div class="col-md-1">
-        <button mat-mini-fab aria-label="Editar funcionarios" (click)="ToggleConfigMode()"
+        <button mat-mini-fab aria-label="Configurar funcionarios" (click)="ToggleConfigMode()"
                 [color]="ConfigMode?'primary':''">
           <mat-icon>settings</mat-icon>
         </button>
@@ -101,7 +101,7 @@
         </form>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-button (click)="RegistrarFuncionario()" [disabled]="field_id.invalid"> Adicionar</button>
+        <button mat-button (click)="RegistrarFuncionario()" [disabled]="field_id.invalid || field_idade.invalid"> Adicionar</button>
       </mat-card-actions>
     </mat-card>
   </mat-tab>

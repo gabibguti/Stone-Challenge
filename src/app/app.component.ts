@@ -80,12 +80,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
-  AtualizarDadosFuncionario() {
+  AtualizarDadosFuncionario(funcionario: IFuncionario) {
     this.service.updateFuncionario(
-      this.funcionarioSelecionado.id,
-      this.funcionarioSelecionado.nome,
-      this.funcionarioSelecionado.cargo,
-      this.funcionarioSelecionado.idade)
+      funcionario.id,
+      funcionario.nome,
+      funcionario.cargo,
+      funcionario.idade)
       .subscribe(() => this.AtualizarListaFuncionarios());
   }
 
@@ -124,7 +124,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log('Dialog result:', result);
+      // Salvar novos dados do funcionario
+      if (result != false) {
+        console.log('autalizando result');
+        this.AtualizarDadosFuncionario(result);
+      }
     });
   }
 
@@ -137,7 +142,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.RemoverFuncionario(id);
   }
 
-  OpenEditionMode(funcionario: Funcionario) {
+  OpenEditionMode(funcionario: IFuncionario) {
     this.openEditionDialog(funcionario);
   }
 }

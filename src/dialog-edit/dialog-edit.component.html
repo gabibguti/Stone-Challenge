@@ -1,8 +1,34 @@
 <h2 mat-dialog-title>Editar</h2>
 <mat-dialog-content>
-  Hello there.
+  <form class="register-form">
+    <!-- ID -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Número de Identidade (id)" [formControl]="field_id" [(value)]="funcionarioEditado.id" required>
+    </mat-form-field>
+
+    <!-- Nome -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nome" [(value)]="funcionarioEditado.nome">
+    </mat-form-field>
+
+    <!-- Idade -->
+    <mat-form-field class="example-full-width">
+      <input matInput type="number" placeholder="Idade" [formControl]="field_idade" [(value)]="funcionarioEditado.idade">
+      <mat-error *ngIf="field_idade.invalid"></mat-error>
+    </mat-form-field>
+
+    <!-- Cargo -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Cargo" [(value)]="funcionarioEditado.cargo">
+    </mat-form-field>
+
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close color="warn">Cancel</button>
-  <button mat-button [mat-dialog-close]="true">Save</button>
+  <button mat-button [mat-dialog-close]="false" color="warn">Cancel</button>
+  <button mat-button
+          [mat-dialog-close]="funcionarioEditado"
+          [disabled]="field_id.invalid || field_idade.invalid">
+    Save
+  </button>
 </mat-dialog-actions>
