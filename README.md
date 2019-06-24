@@ -14,6 +14,16 @@ https://gabibguti.github.io/Stone-Challenge/
 The API can be accessed at:
 https://funcionariosapi.herokuapp.com/challenge/funcionarios
 
+## Most relevant files
+
+[API in Python + Flask](https://github.com/gabibguti/Stone-Challenge/blob/master/Database/app.py)
+
+[App Service and HTTP requests](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.service.ts)
+
+[Main App Interface](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.html)
+
+[Main App code](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.ts)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
@@ -27,16 +37,6 @@ Building and deploying application to **GitHub Pages**:
 `ng build --prod --base-href https://gabibguti.github.io/Stone-Challenge/`
 
 `npx ngh --dir "dist/StoneChallenge"`
-
-## Most relevant files
-
-[API in Python + Flask](https://github.com/gabibguti/Stone-Challenge/blob/master/Database/app.py)
-
-[App Service and HTTP requests](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.service.ts)
-
-[Main App Interface](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.html)
-
-[Main App code](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.ts)
 
 ## Contact
 
