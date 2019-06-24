@@ -11,29 +11,27 @@ export class AppService {
   // Change URL to extern API URL
   baseUrl = environment.apiUrl;
 
-  constructor (private http: HttpClient) {
-    console.log('APP SERVICE');
-    console.log(environment.production, environment.apiUrl);
-    console.log(this.baseUrl);
-  }
+  constructor (private http: HttpClient) {}
 
+  // Pegar funcionarios da base de dados
   getFuncionarios(): Observable<IFuncionario[]> {
     const url = this.baseUrl + 'challenge/funcionarios';
-    console.log('GET FUNCIONARIOS');
-    console.log(url);
     return this.http.get<IFuncionario[]>(url);
   }
 
+  // Adicionar funcionario a base de dados
   addFuncionario(novoFuncionario: IFuncionario): Observable<any> {
     const url = this.baseUrl + 'challenge/funcionarios';
     return this.http.post(url, novoFuncionario);
   }
 
+  // Deletar funcionario da base de dados
   deleteFuncionario(idFuncionario: number): Observable<any> {
     const url = this.baseUrl + 'challenge/funcionarios';
     return this.http.delete(url + '?id=' + idFuncionario.toString());
   }
 
+  // Atualizar funcionario na base de dados
   updateFuncionario(idFuncionario: string, nomeFuncionario: string = null,
                     cargoFuncionario: string = null, idadeFuncionario: number = null): Observable<any> {
     let url = this.baseUrl + 'challenge/funcionarios';

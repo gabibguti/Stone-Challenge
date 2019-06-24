@@ -1,10 +1,7 @@
 <mat-tab-group [(selectedIndex)]="selectedTab">
   <mat-tab label="Funcionários">
-
     <div style="margin: 10px" class="row">
-      <!-- Registrar Novos Funcionários -->
       <div class="col-md-11">
-
         <!-- Tabela Funcionários -->
         <mat-table #table [dataSource]="dataSource">
 
@@ -77,7 +74,7 @@
                 <mat-icon>delete</mat-icon>
               </button>
               <button *ngIf="ConfigMode" mat-icon-button aria-label="Editar funcionarios"
-                      (click)="OpenEditionMode(element)">
+                      (click)="openEditionDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
             </mat-cell>
@@ -95,6 +92,8 @@
         </mat-paginator>
 
       </div>
+
+      <!-- Configurações e Pesquisa -->
       <div class="col-md-1">
         <div class="row" style="margin: 15px;">
 
