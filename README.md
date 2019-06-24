@@ -16,13 +16,13 @@ https://funcionariosapi.herokuapp.com/challenge/funcionarios
 
 ## Most relevant files
 
-[API in Python + Flask](https://github.com/gabibguti/Stone-Challenge/blob/master/Database/app.py)
+[API in Python + Flask](https://github.com/gabibguti/Stone-Challenge/blob/master/Database/app.py) `Stone-Challenge/Database/app.py`
 
-[App Service and HTTP requests](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.service.ts)
+[App Service and HTTP requests](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.service.ts) `Stone-Challenge/src/app/app.service.ts`
 
-[Main App Interface](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.html)
+[Main App Interface](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.html) `Stone-Challenge/src/app/app.component.html`
 
-[Main App code](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.ts)
+[Main App code](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.ts) `Stone-Challenge/src/app/app.component.ts`
 
 ## Development server
 
