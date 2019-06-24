@@ -2,30 +2,43 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IFuncionario} from './funcionario';
 import {Observable} from 'rxjs';
+import {environment} from '../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
-  constructor (private http: HttpClient) {}
+  // Change URL to extern API URL
+  baseUrl = environment.apiUrl;
+
+  constructor (private http: HttpClient) {
+    console.log('APP SERVICE');
+    console.log(environment.production, environment.apiUrl);
+    console.log(this.baseUrl);
+  }
 
   getFuncionarios(): Observable<IFuncionario[]> {
-    return this.http.get<IFuncionario[]>('challenge/funcionarios');
+    const url = this.baseUrl + 'challenge/funcionarios';
+    console.log('GET FUNCIONARIOS');
+    console.log(url);
+    return this.http.get<IFuncionario[]>(url);
   }
 
   addFuncionario(novoFuncionario: IFuncionario): Observable<any> {
-    return this.http.post('challenge/funcionarios', novoFuncionario);
+    const url = this.baseUrl + 'challenge/funcionarios';
+    return this.http.post(url, novoFuncionario);
   }
 
   deleteFuncionario(idFuncionario: number): Observable<any> {
-    return this.http.delete('challenge/funcionarios?id=' + idFuncionario.toString());
+    const url = this.baseUrl + 'challenge/funcionarios';
+    return this.http.delete(url + '?id=' + idFuncionario.toString());
   }
 
   updateFuncionario(idFuncionario: string, nomeFuncionario: string = null,
                     cargoFuncionario: string = null, idadeFuncionario: number = null): Observable<any> {
-    let url = 'challenge/funcionarios?';
+    let url = this.baseUrl + 'challenge/funcionarios';
     // ID
-    url = url + 'id=' + idFuncionario.toString();
+    url = url + '?id=' + idFuncionario.toString();
     // Nome
     if (nomeFuncionario) {
       url = url + '&nome=' + nomeFuncionario.toString();

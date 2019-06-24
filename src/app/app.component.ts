@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MatPaginator, MatTabGroup, MatTableDataSource} 
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogMessageComponent} from '../dialog-message/dialog-message.component';
 import {DialogEditComponent} from '../dialog-edit/dialog-edit.component';
+import {environment} from '../environments/environment.prod';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor (private service: AppService, private http: HttpClient, public dialog: MatDialog) {}
+  constructor (private service: AppService, private http: HttpClient, public dialog: MatDialog) {
+    console.log('ENVIRONMENT');
+    console.log(environment.production); // Logs false for default environment
+    console.log(environment.apiUrl);
+  }
 
   ngOnInit() {
     this.dataSource =  new MatTableDataSource(this.funcionarios);

@@ -44,7 +44,7 @@ import {DialogEditComponent} from '../dialog-edit/dialog-edit.component';
     MatPaginatorModule,
     CommonModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [AppService],
   bootstrap: [AppComponent],
