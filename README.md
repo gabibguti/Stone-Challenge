@@ -1,27 +1,38 @@
 # StoneChallenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
+Simple web application integrated with API Rest.
+
+Web application interface developed with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
+Database generated with [MongoDB](https://www.mongodb.com/cloud/atlas).
+API Rest developed in **Python** and **Flask**.
+
+The deployments were made using **Heroku** for the API and **GitHub Pages** for the Angular interface.
+
+The application can be accessed at:
+https://gabibguti.github.io/Stone-Challenge/
+
+The API can be accessed at:
+https://funcionariosapi.herokuapp.com/challenge/funcionarios
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+Building and deploying application to **GitHub Pages**:
+ng build --prod --base-href https://gabibguti.github.io/Stone-Challenge/
+npx ngh --dir "dist/StoneChallenge"
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Most relevant files
 
-## Running end-to-end tests
+[API in Python + Flask](https://github.com/gabibguti/Stone-Challenge/blob/master/Database/app.py)
+[App Service and HTTP requests](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.service.ts)
+[Main App Interface](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.html)
+[Main App code](https://github.com/gabibguti/Stone-Challenge/blob/master/src/app/app.component.ts)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Contact
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This project was developed by Gabriela Gutierrez.
