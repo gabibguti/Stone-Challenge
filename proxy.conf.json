@@ -1,6 +1,6 @@
 {
   "/challenge/*": {
-    "target" : "http://localhost:5000/challenge",
+    "target" : "https://funcionariosapi.herokuapp.com/challenge",
     "secure" : false,
     "loglevel" : "debug",
     "changeOrigin" : true,

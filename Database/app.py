@@ -4,23 +4,24 @@
 # In[ ]:
 
 
+import os
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from pymongo import MongoClient
+
+client = MongoClient('mongodb+srv://gabriela:12345@clusterfuncionarios-t5r8m.mongodb.net/test?retryWrites=true&w=majority')
+
+db = client.get_database('db_funcionarios')
 
 app = Flask(__name__)
-
-app.config['MONGO_DBNAME'] = 'db_funcionarios'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/db_funcionarios'
-
-mongo = PyMongo(app)
 
 CORS(app)
 
 @app.route("/challenge/funcionarios", methods=["GET"])
 def lista_funcionarios():
-    _funcionarios = mongo.db.db_funcionarios
+    _funcionarios = db.db_funcionarios
     output = []
 
     for f in _funcionarios.find():
@@ -30,7 +31,7 @@ def lista_funcionarios():
 
 @app.route("/challenge/funcionarios/<string:id>", methods=["GET"])
 def funcionario(id):
-    _funcionarios = mongo.db.db_funcionarios
+    _funcionarios = db.db_funcionarios
 
     f = _funcionarios.find_one({"_id": ObjectId(id)})
 
@@ -42,7 +43,7 @@ def funcionario(id):
 
 @app.route("/challenge/funcionarios", methods=["POST"])
 def criar_funcionario():
-    _funcionarios = mongo.db.db_funcionarios
+    _funcionarios = db.db_funcionarios
 
     novo_f = request.get_json()
 
@@ -57,7 +58,7 @@ def criar_funcionario():
 
 @app.route("/challenge/funcionarios", methods=["PUT"])
 def alterar_funcionario():
-    _funcionarios = mongo.db.db_funcionarios
+    _funcionarios = db.db_funcionarios
 
     _id = request.args.get('id')
     _idade = request.args.get('idade')
@@ -85,7 +86,7 @@ def alterar_funcionario():
 
 @app.route("/challenge/funcionarios", methods=["DELETE"])
 def deletar_funcionario():
-    _funcionarios = mongo.db.db_funcionarios
+    _funcionarios = db.db_funcionarios
 
     _id = request.args.get('id')
 
